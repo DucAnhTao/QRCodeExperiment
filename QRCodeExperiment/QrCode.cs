@@ -40,21 +40,21 @@ namespace Lpa.DocFramework.DocGenCore.BarCode
 
         #region default create methods
 
-        public static Image Create(string contents) => CreateBitmap(contents);
+        public static Bitmap Create(string contents) => CreateBitmap(contents);
 
-        public static Image Create(string contents, QREncodeMode mode) => CreateBitmap(contents, mode: mode);
+        public static Bitmap Create(string contents, QREncodeMode mode) => CreateBitmap(contents, mode: mode);
 
-        public static Image Create(string contents, QRErrorLevel errorLevel) => CreateBitmap(contents, errorLevel: errorLevel);
+        public static Bitmap Create(string contents, QRErrorLevel errorLevel) => CreateBitmap(contents, errorLevel: errorLevel);
 
-        public static Image Create(string contents, QREncodeMode mode, QRErrorLevel errorLevel) => CreateBitmap(contents, mode: mode, errorLevel: errorLevel);
+        public static Bitmap Create(string contents, QREncodeMode mode, QRErrorLevel errorLevel) => CreateBitmap(contents, mode: mode, errorLevel: errorLevel);
 
-        public static Image Create(string contents, int resolution) => CreateBitmap(contents, resolution);
+        public static Bitmap Create(string contents, int resolution) => CreateBitmap(contents, resolution);
 
-        public static Image Create(string contents, int resolution, QREncodeMode mode) => CreateBitmap(contents, resolution, mode);
+        public static Bitmap Create(string contents, int resolution, QREncodeMode mode) => CreateBitmap(contents, resolution, mode);
 
-        public static Image Create(string contents, int resolution, QRErrorLevel errorLevel) => CreateBitmap(contents, resolution, errorLevel: errorLevel);
+        public static Bitmap Create(string contents, int resolution, QRErrorLevel errorLevel) => CreateBitmap(contents, resolution, errorLevel: errorLevel);
 
-        public static Image Create(string contents, int resolution, QREncodeMode mode, QRErrorLevel errorLevel) 
+        public static Bitmap Create(string contents, int resolution, QREncodeMode mode, QRErrorLevel errorLevel) 
             => CreateBitmap(contents, resolution, mode, errorLevel);
 
         public static Image CreateEmf(string contents, QREncodeMode mode, QRErrorLevel errorLevel) 
@@ -114,18 +114,19 @@ namespace Lpa.DocFramework.DocGenCore.BarCode
         #endregion
 
         /// <summary> Allowed <paramref name="resolution"/> are  </summary>
-        private static Image CreateBitmap(string contents
+        private static Bitmap CreateBitmap(string contents
             , int? resolution = null, QREncodeMode mode = DefaultQrEncodeMode
             , QRErrorLevel errorLevel = DefaultQrErrorLevel)
         {
-            using(Bitmap bitmap = CreateBitmapImage(contents, resolution, mode, errorLevel))
-            using (var ms = new MemoryStream())
+            Bitmap bitmap = CreateBitmapImage(contents, resolution, mode, errorLevel);
+            return bitmap;
+            /*using (var ms = new MemoryStream())
             {
                 bitmap.Save(ms, ImageFormat.Png);
                 var content = ms.ToArray();
                 return CreateImage(content);
                 //return new Image(content, "QR.png");
-            }
+            }*/
         }
 
         private static Image CreateImage(this byte[] content)
