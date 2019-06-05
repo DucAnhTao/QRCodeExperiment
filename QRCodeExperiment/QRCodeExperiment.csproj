@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="BarCode\QrTests - Copy.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Aspose.BarCode">
+      <HintPath>..\..\..\..\..\..\Repos\DocFramework\DocFrameworkCore\AsposeWrapper\bin\Debug\Aspose.BarCode.dll</HintPath>
+    </Reference>
+    <Reference Include="DocFramework.AsposeWrapper">
+      <HintPath>..\..\..\..\..\..\Repos\DocFramework\DocFrameworkCore\AsposeWrapper\bin\Debug\DocFramework.AsposeWrapper.dll</HintPath>
+    </Reference>
+    <Reference Include="DocFramework.GlobalConstants">
+      <HintPath>..\..\..\..\..\..\Repos\DocFramework\DocFrameworkCore\AsposeWrapper\bin\Debug\DocFramework.GlobalConstants.dll</HintPath>
+    </Reference>
+    <Reference Include="DocFramework.Trace">
+      <HintPath>..\..\..\..\..\..\Repos\DocFramework\DocFrameworkCore\AsposeWrapper\bin\Debug\DocFramework.Trace.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
