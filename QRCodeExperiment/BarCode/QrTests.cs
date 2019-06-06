@@ -53,11 +53,11 @@ namespace QRCodeExperiment
             QrCode.Create(str); str += str; //512
             QrCode.Create(str); str += str; //1024
             QrCode.Create(str); str += str; //2048 max: 1273.
-            var bmp = QrCode.Create(str, QRErrorLevel.LevelM);
+            var bmp = QrCode.Create(str, errorLevel: QRErrorLevel.LevelM);
             bmp.Save("TestMaxTextLength.bmp", ImageFormat.Bmp);
-            var emf = QrCode.CreateEmf(str, QREncodeMode.Binary, QRErrorLevel.LevelM);
+            var emf = QrCode.CreateEmf(str, QREncodeMode.Binary, errorLevel: QRErrorLevel.LevelM);
             emf.Save("TestMaxTextLength.emf", ImageFormat.Emf); str += str; //4096 max: 2953
-            QrCode.Create(str, QREncodeMode.AlphaNumber, QRErrorLevel.LevelL); //8192 max: 
+            QrCode.Create(str, QREncodeMode.AlphaNumber, errorLevel: QRErrorLevel.LevelL); //8192 max: 
         }
 
         [TestCategory("RegressionTest")]
@@ -66,10 +66,13 @@ namespace QRCodeExperiment
         {
             var str = "!\"§$%&/()=??`*'Äöüä;><,.-#d+´ß";
             var bmp = QrCode.Create(str);
-            bmp.Save("TestSpecialChars.bmp", ImageFormat.Bmp);
+            bmp.Save("C:/TestSpecialChars.jpg", ImageFormat.Bmp);
             var emf = QrCode.CreateEmf(str, QREncodeMode.Binary, QRErrorLevel.LevelM);
             emf.Save("TestSpecialChars.emf", ImageFormat.Emf);
             var result = QrCode.ReadAsString(bmp);
+            System.Console.WriteLine(result);
+            System.Console.WriteLine(str);
+            System.Console.Read();
             Assert.AreEqual(str, result);
         }
 
@@ -163,10 +166,13 @@ namespace QRCodeExperiment
         {
             var str = "ه تعبير كان بيستخدم ";
             var bmp = QrCode.Create(str);
-            bmp.Save("TestArabic.bmp", ImageFormat.Bmp);
+            bmp.Save("C:/TestArabic.png", ImageFormat.Bmp);
             var emf = QrCode.CreateEmf(str, QREncodeMode.Binary, QRErrorLevel.LevelM);
             emf.Save("TestArabic.emf", ImageFormat.Emf);
             var result = QrCode.ReadAsString(bmp);
+            System.Console.WriteLine(result);
+            System.Console.WriteLine(str);
+            System.Console.Read();
             Assert.AreEqual(str, result);
         }
 

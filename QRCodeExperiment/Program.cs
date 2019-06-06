@@ -7,12 +7,12 @@ namespace QRCodeExperiment
         static void Main(string[] args)
         {
             QrTests qrTests = new QrTests();
-            //qrTests.TestArabic();
+            qrTests.TestArabic();
             //qrTests.TestChineseHanzuKanji();
             //qrTests.TestGeorgisch();
             //qrTests.TestJapaneseHiragana();
             //qrTests.TestJapaneseKatakana();
-            qrTests.TestMaxTextLength();
+            //qrTests.TestMaxTextLength();
             //qrTests.TestMaxTNumberLength();
             //qrTests.TestNewLine();
             //qrTests.TestReadHiddenQrCodeBmp();
