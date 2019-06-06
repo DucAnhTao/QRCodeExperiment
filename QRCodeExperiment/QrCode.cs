@@ -6,7 +6,7 @@ using Aspose.BarCode;
 using Aspose.BarCodeRecognition;
 using Lpa.DocFramework.AsposeWrapper;
 
-namespace Lpa.DocFramework.DocGenCore.BarCode
+namespace QRCodeExperiment
 {
     /// <summary> Component Registration and Extension Methods to handle QR Codes </summary>
     /// <remarks>

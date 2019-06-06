@@ -6,7 +6,18 @@ namespace QRCodeExperiment
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            QrTests qrTests = new QrTests();
+            //qrTests.TestArabic();
+            //qrTests.TestChineseHanzuKanji();
+            //qrTests.TestGeorgisch();
+            //qrTests.TestJapaneseHiragana();
+            //qrTests.TestJapaneseKatakana();
+            qrTests.TestMaxTextLength();
+            //qrTests.TestMaxTNumberLength();
+            //qrTests.TestNewLine();
+            //qrTests.TestReadHiddenQrCodeBmp();
+            //qrTests.TestRussisch();
+            //qrTests.TestSpecialChars();
         }
     }
 }

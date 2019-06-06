@@ -6,11 +6,11 @@ using System.IO;
 using Aspose.BarCode;
 using Aspose.BarCodeRecognition;
 using Lpa.DocFramework.AsposeWrapper;
-using Lpa.DocFramework.DocGenCore.BarCode;
+//using Lpa.DocFramework.DocGenCore.BarCode;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Image = System.Drawing.Image;
 
-namespace Lpa.DocFramework.DocGenService.UnitTest.BarCode
+namespace QRCodeExperiment
 {
     [TestClass]
     public class QrTests 
