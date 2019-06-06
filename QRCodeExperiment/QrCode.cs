@@ -5,6 +5,7 @@ using System.Text;
 using Aspose.BarCode;
 using Aspose.BarCodeRecognition;
 using Lpa.DocFramework.AsposeWrapper;
+using ZXing;
 
 namespace QRCodeExperiment
 {
@@ -90,11 +91,20 @@ namespace QRCodeExperiment
 
         public static string ReadAsString(Bitmap bmp, BarCodeReadType type = BarCodeReadType.QR)
         {
-            BarCodeReader reader = new BarCodeReader(bmp, type);
-            if (reader.Read())
+            //BarCodeReader reader = new BarCodeReader(bmp, type) { RecognitionMode = RecognitionMode.MaxQuality };
+
+            IBarcodeReader reader = new BarcodeReader();
+            // detect and decode the barcode inside the bitmap
+            var result = reader.Decode(bmp);
+            // do something with the result
+            if (result != null)
             {
-                return reader.GetCodeText();
+                return result.Text;
             }
+            //if (reader.Read())
+            //{
+            //    return reader.GetCodeText();
+            //}
             return null;
         }
 
@@ -102,7 +112,7 @@ namespace QRCodeExperiment
         {
             using (var ms = new MemoryStream(qr))
             {
-                BarCodeReader reader = new BarCodeReader(ms, type);
+                BarCodeReader reader = new BarCodeReader(ms, type) { RecognitionMode=RecognitionMode.MaxQuality };
                 if (reader.Read())
                 {
                     return reader.GetCodeText();

@@ -188,7 +188,7 @@ namespace QRCodeExperiment
         {
             var bmp = new Bitmap(QRCODE_20MM_PNG);
             var qrContentString = QrCode.ReadAsString(bmp, BarCodeReadType.AllSupportedTypes);
-            Assert.AreEqual("Hello world!", qrContentString);
+            Assert.AreEqual("SAMDMS:MANDANT={Spec~Cond3~DisplayValue};NUMSEITE=1;ANZSEITEN={12};ABLAGE=(COD_GO_TYP={COD_GO_TYPA};COD_GO_NR={CustomerID};COD_HUELLE={COD_HUELLEA};NAM_DOKUMENT={NAM_DOKUMENTA})", qrContentString);
         }
 
         /*[TestCategory("RegressionTest")]
