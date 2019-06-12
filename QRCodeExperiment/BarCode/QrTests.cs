@@ -8,6 +8,7 @@ using Aspose.BarCodeRecognition;
 using Lpa.DocFramework.AsposeWrapper;
 //using Lpa.DocFramework.DocGenCore.BarCode;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Shouldly;
 using Image = System.Drawing.Image;
 
 namespace QRCodeExperiment
@@ -81,9 +82,16 @@ namespace QRCodeExperiment
             var bmp = QrCode.Create(str);
             bmp.Save("TestNewLine.bmp", ImageFormat.Bmp);
             var emf = QrCode.CreateEmf(str, QREncodeMode.Binary, QRErrorLevel.LevelM);
-            emf.Save("TestNewLine.emf", ImageFormat.Emf);
             var result = QrCode.ReadAsString(bmp);
             Assert.AreEqual(str, result);
+
+            var emfFile = "TestNewLine.emf";
+            var expectedEmfFile = "Expected.emf";
+            emf.Save(emfFile, ImageFormat.Emf);
+            var actualBytes = File.ReadAllBytes(emfFile);
+            var expectedBytes = File.ReadAllBytes(expectedEmfFile);
+            CollectionAssert.AreEqual(expectedBytes, actualBytes);
+            actualBytes.ShouldBe(expectedBytes, false);
         }
 
         [TestCategory("RegressionTest")]

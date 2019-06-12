@@ -4,14 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4FC74014-3A7E-4285-8698-3F33986CC5D4}</ProjectGuid>
+    <ProjectGuid>{CE3C5B6F-F303-40CF-B6B8-08E9BACA8B88}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>QRCodeExperiment</RootNamespace>
-    <AssemblyName>QRCodeExperiment</AssemblyName>
+    <RootNamespace>QRCodeReader_Aspose_19_5</RootNamespace>
+    <AssemblyName>QRCodeReader_Aspose_19_5</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,15 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Aspose.BarCode">
-      <HintPath>..\..\..\..\..\..\Repos\DocFramework\DocFrameworkCore\AsposeWrapper\bin\Debug\Aspose.BarCode.dll</HintPath>
-    </Reference>
-    <Reference Include="DocFramework.AsposeWrapper">
-      <HintPath>..\..\..\..\..\..\Repos\DocFramework\DocFrameworkCore\AsposeWrapper\bin\Debug\DocFramework.AsposeWrapper.dll</HintPath>
+    <Reference Include="Aspose.BarCode, Version=19.5.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
+      <HintPath>..\QRCodeExperiment\packages\Aspose.BarCode.19.5.0\lib\net45\Aspose.BarCode.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Shouldly, Version=3.0.2.0, Culture=neutral, PublicKeyToken=6042cbcb05cbc941, processorArchitecture=MSIL">
-      <HintPath>packages\Shouldly.3.0.2\lib\net451\Shouldly.dll</HintPath>
+      <HintPath>..\QRCodeExperiment\packages\Shouldly.3.0.2\lib\net451\Shouldly.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -54,29 +51,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BarCode\QrTests.cs" />
+    <Compile Include="BarCode\QrTests195.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QrCode.cs" />
+    <Compile Include="QrCode195.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\QRCodeExperiment\BarCode\QrCode_20mm.pdf">
+      <Link>BarCode\QrCode_20mm.pdf</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="App.config" />
-    <None Include="BarCode\QrCodePowerpoint.pptx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="BarCode\QrCodeWord.docx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="BarCode\QrCodeWord2.docx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="BarCode\QrCode_20mm.pdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BarCode\QrCode_20mm.png">
+    <Content Include="..\QRCodeExperiment\BarCode\QrCode_20mm.png">
+      <Link>BarCode\QrCode_20mm.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
