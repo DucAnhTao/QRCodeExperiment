@@ -179,7 +179,7 @@ namespace QRCodeExperiment
         private const string Dir = @"BarCode\";
         const string DOCX_QR_CODE = "QrCodeWord.docx";
         const string QRCODE_20MM_PDF = "QrCode_20mm.pdf";
-        const string QRCODE_20MM_PNG = "QrCode_20mm.png";
+        const string QRCODE_20MM_PNG = "NewTest.png";
 
         [TestCategory("RegressionTest")]
         [TestMethod]
