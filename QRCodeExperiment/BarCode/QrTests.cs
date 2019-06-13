@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using Aspose.BarCode;
 using Aspose.BarCodeRecognition;
+using Faker;
 using Lpa.DocFramework.AsposeWrapper;
 using Lpa.DocFramework.DocGenCore.BarCode;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -170,6 +172,87 @@ namespace Lpa.DocFramework.DocGenService.UnitTest.BarCode
             Assert.AreEqual(str, result);
         }
 
+        [TestCategory("RegressionTest")]
+        [TestMethod]
+        public void TestRandomCharWithPattern()
+        {
+            CheckRandomCharWithPattern(QRErrorLevel.LevelL);
+            CheckRandomCharWithPattern(QRErrorLevel.LevelM);
+            CheckRandomCharWithPattern(QRErrorLevel.LevelQ);
+            CheckRandomCharWithPattern(QRErrorLevel.LevelH);
+
+            CheckRandomCharWithPattern(QRErrorLevel.LevelL);
+            CheckRandomCharWithPattern(QRErrorLevel.LevelM);
+            CheckRandomCharWithPattern(QRErrorLevel.LevelQ);
+            CheckRandomCharWithPattern(QRErrorLevel.LevelH);
+        }
+
+        public void CheckRandomCharWithPattern(QRErrorLevel errLevel)
+        {
+            Trace.WriteLine(errLevel);
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+            int numSuccess = 0;
+            int numFails = 0;
+            int sampleFail = 0;
+            for (int i = 999; i >= 0; i--)
+            {
+                string str = "";
+                try
+                {
+                var mandant = FakerRandom.Rand.Next(999);
+                int anzSeiten = FakerRandom.Rand.Next(99);
+                var numSeite = FakerRandom.Rand.Next(anzSeiten);
+                string codGoTyp = Lorem.GetWord();
+                string codGoNr = Lorem.GetWord();
+                int codHuelle = FakerRandom.Rand.Next(9999);
+                str = $"SAMDMS: MANDANT ={mandant}; NUMSEITE = {numSeite}; ANZSEITEN ={anzSeiten}; ABLAGE = (COD_GO_TYP = {codGoTyp}; COD_GO_NR ={codGoNr};COD_HUELLE ={codHuelle})";
+                var bmp = QrCode.Create(str, errLevel);
+                bmp.Save("TestRandomCharWithPattern.bmp", ImageFormat.Bmp);
+                var emf = QrCode.CreateEmf(str, QREncodeMode.Binary, QRErrorLevel.LevelM); 
+                emf.Save("TestRandomCharWithPattern.emf", ImageFormat.Emf);
+                var result = QrCode.ReadAsString(bmp);
+                Assert.AreEqual(str, result);
+                    numSuccess++;
+                }
+                catch (System.Exception x)
+                {
+                    numFails++;
+                    if (sampleFail == 0)
+                    {
+                        Trace.WriteLine(message: $"{x.Message} with this Input: \n{str}");
+                    }
+                    sampleFail = 1;
+                }
+            }
+            double successRate = System.Math.Round((double) numSuccess / (numSuccess + numFails) * 100, 2);
+            Trace.WriteLine("Success: " + numSuccess + ", Fail: " + numFails);
+            Trace.WriteLine("Successrate: " + successRate + "%");
+            watch.Stop();
+            double elapsedMs = watch.ElapsedMilliseconds/1000;
+            Trace.WriteLine("Elapsed Time: " + elapsedMs);
+            Trace.WriteLine("");
+        }
+
+        [TestCategory("RegressionTest")]
+        [TestMethod]
+        public void TestRandomCharWithPattern2()
+        {
+            var mandant = FakerRandom.Rand.Next(999);
+            int anzSeiten = FakerRandom.Rand.Next(99);
+            var numSeite = FakerRandom.Rand.Next(anzSeiten);
+            string codGoTyp = Lorem.GetWord();
+            string codGoNr = Lorem.GetWord();
+            int codHuelle = FakerRandom.Rand.Next(9999);
+            //var str = "SAMDMS: MANDANT =181; NUMSEITE = 4; ANZSEITEN =7; ABLAGE = (COD_GO_TYP = facilis; COD_GO_NR =tempore;COD_HUELLE =3258)";
+            var str = "SAMDMS: MANDANT =922; NUMSEITE = 6; ANZSEITEN =76; ABLAGE = (COD_GO_TYP = dignissimos; COD_GO_NR =qui;COD_HUELLE =6834)";
+            var bmp = QrCode.Create(str);
+            bmp.Save("C:\\Users\\taod\\Downloads\\TestRandomCharWithPattern.bmp", ImageFormat.Bmp);
+            var emf = QrCode.CreateEmf(str, QREncodeMode.Binary, QRErrorLevel.LevelM);
+            emf.Save("TestRandomCharWithPattern.emf", ImageFormat.Emf);
+            var result = QrCode.ReadAsString(bmp);
+            Assert.AreEqual(str, result);
+        }
+
         private const string Dir = @"BarCode\";
         const string DOCX_QR_CODE = "QrCodeWord.docx";
         const string QRCODE_20MM_PDF = "QrCode_20mm.pdf";
@@ -182,7 +265,8 @@ namespace Lpa.DocFramework.DocGenService.UnitTest.BarCode
         {
             var bmp = new Bitmap(QRCODE_20MM_PNG);
             var qrContentString = QrCode.ReadAsString(bmp, BarCodeReadType.AllSupportedTypes);
-            Assert.AreEqual("SAMDMS:MANDANT={Spec~Cond3~DisplayValue};NUMSEITE=1;ANZSEITEN={12};ABLAGE=(COD_GO_TYP={COD_GO_TYPA};COD_GO_NR={CustomerID};COD_HUELLE={COD_HUELLEA};NAM_DOKUMENT={NAM_DOKUMENTA})", qrContentString);
+            Assert.AreEqual("SAMDMS:MANDANT={Spec~Cond3~DisplayValue};NUMSEITE=1;ANZSEITEN={12};ABLAGE=(COD_GO_TYP={COD_GO_TYPA};" +
+                "COD_GO_NR={CustomerID};COD_HUELLE={COD_HUELLEA};NAM_DOKUMENT={NAM_DOKUMENTA})", qrContentString);
         }
 
         /*[TestCategory("RegressionTest")]

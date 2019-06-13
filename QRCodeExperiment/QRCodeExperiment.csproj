@@ -82,5 +82,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Faker.Net\Faker.Net\Faker.Net.csproj">
+      <Project>{F4E27022-496C-48E5-8986-F68355C2ECB3}</Project>
+      <Name>Faker.Net</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
