@@ -70,9 +70,6 @@ namespace QRCodeExperiment
             var emf = QrCode.CreateEmf(str, QREncodeMode.Binary, QRErrorLevel.LevelM);
             emf.Save("TestSpecialChars.emf", ImageFormat.Emf);
             var result = QrCode.ReadAsString(bmp);
-            System.Console.WriteLine(result);
-            System.Console.WriteLine(str);
-            System.Console.Read();
             Assert.AreEqual(str, result);
         }
 
@@ -170,9 +167,6 @@ namespace QRCodeExperiment
             var emf = QrCode.CreateEmf(str, QREncodeMode.Binary, QRErrorLevel.LevelM);
             emf.Save("TestArabic.emf", ImageFormat.Emf);
             var result = QrCode.ReadAsString(bmp);
-            System.Console.WriteLine(result);
-            System.Console.WriteLine(str);
-            System.Console.Read();
             Assert.AreEqual(str, result);
         }
 
