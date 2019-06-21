@@ -194,6 +194,9 @@ namespace Lpa.DocFramework.DocGenService.UnitTest.BarCode
             int numSuccess = 0;
             int numFails = 0;
             int sampleFail = 0;
+            double successRate = 0;
+            double elapsedMs = 0;
+
             for (int i = 999; i >= 0; i--)
             {
                 string str = "";
@@ -224,11 +227,12 @@ namespace Lpa.DocFramework.DocGenService.UnitTest.BarCode
                     sampleFail = 1;
                 }
             }
-            double successRate = System.Math.Round((double) numSuccess / (numSuccess + numFails) * 100, 2);
+            successRate = System.Math.Round((double) numSuccess / (numSuccess + numFails) * 100, 2);
             Trace.WriteLine("Success: " + numSuccess + ", Fail: " + numFails);
             Trace.WriteLine("Successrate: " + successRate + "%");
             watch.Stop();
-            double elapsedMs = watch.ElapsedMilliseconds/1000;
+
+            elapsedMs = watch.ElapsedMilliseconds/1000;
             Trace.WriteLine("Elapsed Time: " + elapsedMs);
             Trace.WriteLine("");
         }
