@@ -89,5 +89,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Faker.Net\Faker.Net\Faker.Mono.csproj">
+      <Project>{3e4dae88-371f-41dd-b8dc-0002025ca569}</Project>
+      <Name>Faker.Mono</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

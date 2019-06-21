@@ -125,7 +125,7 @@ namespace QRCodeExperiment
 
         /// <summary> Allowed <paramref name="resolution"/> are  </summary>
         private static Bitmap CreateBitmap(string contents
-            , int? resolution = 400, QREncodeMode mode = DefaultQrEncodeMode
+            , int? resolution = null, QREncodeMode mode = DefaultQrEncodeMode
             , QRErrorLevel errorLevel = DefaultQrErrorLevel)
         {
             Bitmap bitmap = CreateBitmapImage(contents, resolution, mode, errorLevel);
