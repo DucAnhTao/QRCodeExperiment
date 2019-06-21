@@ -206,7 +206,7 @@ namespace QRCodeReader_Aspose_19_5
             double successRate = 0;
             double elapsedMs = 0;
 
-            for (int i = 999; i >= 0; i--)
+            for (int i = 9999; i >= 0; i--)
             {
                 string str = "";
                 try
@@ -250,17 +250,10 @@ namespace QRCodeReader_Aspose_19_5
         [TestMethod]
         public void TestRandomCharWithPattern2()
         {
-            var mandant = FakerRandom.Rand.Next(999);
-            int anzSeiten = FakerRandom.Rand.Next(99);
-            var numSeite = FakerRandom.Rand.Next(anzSeiten);
-            string codGoTyp = Lorem.GetWord();
-            string codGoNr = Lorem.GetWord();
-            int codHuelle = FakerRandom.Rand.Next(9999);
-            //var str = "SAMDMS: MANDANT =181; NUMSEITE = 4; ANZSEITEN =7; ABLAGE = (COD_GO_TYP = facilis; COD_GO_NR =tempore;COD_HUELLE =3258)";
-            var str = "SAMDMS: MANDANT =922; NUMSEITE = 6; ANZSEITEN =76; ABLAGE = (COD_GO_TYP = dignissimos; COD_GO_NR =qui;COD_HUELLE =6834)";
-            var bmp = QrCode195.Create(str);
+            var str = "SAMDMS: MANDANT =277; NUMSEITE = 9; ANZSEITEN =50; BLAGE = (COD_GO_TYP = quaerat; COD_GO_NR =ab;COD_HUELLE =6813)";
+            var bmp = QrCode195.Create(str, QREncodeMode.Bytes, QRErrorLevel.LevelL);
             bmp.Save("C:\\Users\\taod\\Downloads\\TestRandomCharWithPattern.bmp", ImageFormat.Bmp);
-            var emf = QrCode195.CreateEmf(str, QREncodeMode.Bytes, QRErrorLevel.LevelM);
+            var emf = QrCode195.CreateEmf(str, QREncodeMode.Bytes, QRErrorLevel.LevelL);
             emf.Save("TestRandomCharWithPattern.emf", ImageFormat.Emf);
             var result = QrCode195.ReadAsString(bmp);
             Assert.AreEqual(str, result);
