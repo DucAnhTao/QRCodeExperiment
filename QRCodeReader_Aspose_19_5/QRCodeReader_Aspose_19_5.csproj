@@ -62,6 +62,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="App.config" />
+    <EmbeddedResource Include="BarCode\Aspose.BarCode.lic" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

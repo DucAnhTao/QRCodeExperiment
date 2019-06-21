@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using Aspose.BarCode;
 using Aspose.BarCode.BarCodeRecognition;
+using Aspose.BarCode.Generation;
 //using Lpa.DocFramework.AsposeWrapper;
 
 namespace QRCodeReader_Aspose_19_5
@@ -18,15 +19,17 @@ namespace QRCodeReader_Aspose_19_5
     /// but internet Protocols are recognized by Clients: URLs, mailto: addresses and vCard: Data.
     /// iCal Info is possible. 
     /// </remarks>
+    
     public static class QrCode195
     {
-        //static QrCode195()
-        //{
-        //    AsposeBarCodeInit.Init();
-        //}
-
+        static QrCode195()
+        {
+            Aspose.BarCode.License license = new Aspose.BarCode.License();
+            license.SetLicense("Aspose.BarCode.lic");
+        }
+        
         private static Encoding ISO_8859_1 = Encoding.GetEncoding("iso-8859-1");
-        private const QREncodeMode DefaultQrEncodeMode = QREncodeMode.Utf8BOM;
+        private const QREncodeMode DefaultQrEncodeMode = QREncodeMode.Bytes;
 
         /// <summary> Level of Reed-Solomon error correction. From low to high: LevelL, LevelM, LevelQ, LevelH. </summary>
         /// <remarks>
@@ -119,7 +122,7 @@ namespace QRCodeReader_Aspose_19_5
 
         /// <summary> Allowed <paramref name="resolution"/> are  </summary>
         private static Bitmap CreateBitmap(string contents
-            , int? resolution = null, QREncodeMode mode = DefaultQrEncodeMode
+            , int? resolution = 150, QREncodeMode mode = DefaultQrEncodeMode
             , QRErrorLevel errorLevel = DefaultQrErrorLevel)
         {
             Bitmap bitmap = CreateBitmapImage(contents, resolution, mode, errorLevel);
@@ -145,7 +148,7 @@ namespace QRCodeReader_Aspose_19_5
             if (resolution.HasValue)
                 return builder.GetCustomSizeBarCodeImage(new Size(resolution.Value, resolution.Value), false);
 
-            return builder.GetOnlyBarCodeImage();
+            return builder.GenerateBarCodeImage();
         }
 
         private static byte[] CreateEmfBytes(string contents, QREncodeMode mode, QRErrorLevel errorLevel)
@@ -158,19 +161,19 @@ namespace QRCodeReader_Aspose_19_5
 
         private static BarCodeBuilder CreateQrBuilder(string contents, QREncodeMode mode, QRErrorLevel errorLevel)
         {
-            if (mode == QREncodeMode.Utf8BOM)
+            if (mode == QREncodeMode.Bytes)
             {
                 var bytes = Encoding.UTF8.GetBytes(contents);
                 contents = ISO_8859_1.GetString(bytes);
             }
 
-            BarCodeBuilder builder = new BarCodeBuilder(contents)
+            BarCodeBuilder builder = new BarCodeBuilder(contents, EncodeTypes.QR)
             {
                 QRErrorLevel = errorLevel,
                 QREncodeMode = mode,
                 EnableEscape = true,
-                CaptionAbove = new Caption { Visible = false },
-                CaptionBelow = new Caption { Visible = false }
+                CaptionAbove = new Aspose.BarCode.Caption { Visible = false },
+                CaptionBelow = new Aspose.BarCode.Caption { Visible = false }
             };
             return builder;
         }
