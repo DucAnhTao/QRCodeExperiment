@@ -7,20 +7,38 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QRCodeExperiment", "QRCodeE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QRCodeReader_Aspose_19_5", "..\QRCodeReader_Aspose_19_5\QRCodeReader_Aspose_19_5.csproj", "{CE3C5B6F-F303-40CF-B6B8-08E9BACA8B88}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faker.Mono", "..\..\Faker.Net\Faker.Net\Faker.Mono.csproj", "{3E4DAE88-371F-41DD-B8DC-0002025CA569}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{4FC74014-3A7E-4285-8698-3F33986CC5D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4FC74014-3A7E-4285-8698-3F33986CC5D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FC74014-3A7E-4285-8698-3F33986CC5D4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4FC74014-3A7E-4285-8698-3F33986CC5D4}.Debug|x86.Build.0 = Debug|Any CPU
 		{4FC74014-3A7E-4285-8698-3F33986CC5D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4FC74014-3A7E-4285-8698-3F33986CC5D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FC74014-3A7E-4285-8698-3F33986CC5D4}.Release|x86.ActiveCfg = Release|Any CPU
+		{4FC74014-3A7E-4285-8698-3F33986CC5D4}.Release|x86.Build.0 = Release|Any CPU
 		{CE3C5B6F-F303-40CF-B6B8-08E9BACA8B88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CE3C5B6F-F303-40CF-B6B8-08E9BACA8B88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE3C5B6F-F303-40CF-B6B8-08E9BACA8B88}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CE3C5B6F-F303-40CF-B6B8-08E9BACA8B88}.Debug|x86.Build.0 = Debug|Any CPU
 		{CE3C5B6F-F303-40CF-B6B8-08E9BACA8B88}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE3C5B6F-F303-40CF-B6B8-08E9BACA8B88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE3C5B6F-F303-40CF-B6B8-08E9BACA8B88}.Release|x86.ActiveCfg = Release|Any CPU
+		{CE3C5B6F-F303-40CF-B6B8-08E9BACA8B88}.Release|x86.Build.0 = Release|Any CPU
+		{3E4DAE88-371F-41DD-B8DC-0002025CA569}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{3E4DAE88-371F-41DD-B8DC-0002025CA569}.Debug|x86.ActiveCfg = Debug|x86
+		{3E4DAE88-371F-41DD-B8DC-0002025CA569}.Debug|x86.Build.0 = Debug|x86
+		{3E4DAE88-371F-41DD-B8DC-0002025CA569}.Release|Any CPU.ActiveCfg = Release|x86
+		{3E4DAE88-371F-41DD-B8DC-0002025CA569}.Release|x86.ActiveCfg = Release|x86
+		{3E4DAE88-371F-41DD-B8DC-0002025CA569}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

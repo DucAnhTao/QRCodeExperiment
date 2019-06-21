@@ -25,44 +25,44 @@ namespace QRCodeReader_Aspose_19_5
         //    AsposeBarCodeInit.Init();
         //}
 
-        //private static Encoding ISO_8859_1 = Encoding.GetEncoding("iso-8859-1");
-        //private const QREncodeMode DefaultQrEncodeMode = QREncodeMode.Binary;
+        private static Encoding ISO_8859_1 = Encoding.GetEncoding("iso-8859-1");
+        private const QREncodeMode DefaultQrEncodeMode = QREncodeMode.Utf8BOM;
 
-        ///// <summary> Level of Reed-Solomon error correction. From low to high: LevelL, LevelM, LevelQ, LevelH. </summary>
-        ///// <remarks>
-        ///// LevelL. Allows recovery of 7% of the code text
-        ///// LevelM. Allows recovery of 15% of the code text
-        ///// LevelQ. Allows recovery of 25% of the code text
-        ///// LevelH. Allows recovery of 30% of the code text
-        ///// 
-        ///// </remarks>
-        //private const QRErrorLevel DefaultQrErrorLevel = QRErrorLevel.LevelH;
+        /// <summary> Level of Reed-Solomon error correction. From low to high: LevelL, LevelM, LevelQ, LevelH. </summary>
+        /// <remarks>
+        /// LevelL. Allows recovery of 7% of the code text
+        /// LevelM. Allows recovery of 15% of the code text
+        /// LevelQ. Allows recovery of 25% of the code text
+        /// LevelH. Allows recovery of 30% of the code text
+        /// 
+        /// </remarks>
+        private const QRErrorLevel DefaultQrErrorLevel = QRErrorLevel.LevelH;
 
-        //#region default create methods
+        #region default create methods
 
-        //public static Bitmap Create(string contents) => CreateBitmap(contents);
+        public static Bitmap Create(string contents) => CreateBitmap(contents);
 
-        //public static Bitmap Create(string contents, QREncodeMode mode) => CreateBitmap(contents, mode: mode);
+        public static Bitmap Create(string contents, QREncodeMode mode) => CreateBitmap(contents, mode: mode);
 
-        //public static Bitmap Create(string contents, QRErrorLevel errorLevel) => CreateBitmap(contents, errorLevel: errorLevel);
+        public static Bitmap Create(string contents, QRErrorLevel errorLevel) => CreateBitmap(contents, errorLevel: errorLevel);
 
-        //public static Bitmap Create(string contents, QREncodeMode mode, QRErrorLevel errorLevel) => CreateBitmap(contents, mode: mode, errorLevel: errorLevel);
+        public static Bitmap Create(string contents, QREncodeMode mode, QRErrorLevel errorLevel) => CreateBitmap(contents, mode: mode, errorLevel: errorLevel);
 
-        //public static Bitmap Create(string contents, int resolution) => CreateBitmap(contents, resolution);
+        public static Bitmap Create(string contents, int resolution) => CreateBitmap(contents, resolution);
 
-        //public static Bitmap Create(string contents, int resolution, QREncodeMode mode) => CreateBitmap(contents, resolution, mode);
+        public static Bitmap Create(string contents, int resolution, QREncodeMode mode) => CreateBitmap(contents, resolution, mode);
 
-        //public static Bitmap Create(string contents, int resolution, QRErrorLevel errorLevel) => CreateBitmap(contents, resolution, errorLevel: errorLevel);
+        public static Bitmap Create(string contents, int resolution, QRErrorLevel errorLevel) => CreateBitmap(contents, resolution, errorLevel: errorLevel);
 
-        //public static Bitmap Create(string contents, int resolution, QREncodeMode mode, QRErrorLevel errorLevel) 
-        //    => CreateBitmap(contents, resolution, mode, errorLevel);
+        public static Bitmap Create(string contents, int resolution, QREncodeMode mode, QRErrorLevel errorLevel)
+            => CreateBitmap(contents, resolution, mode, errorLevel);
 
-        //public static Image CreateEmf(string contents, QREncodeMode mode, QRErrorLevel errorLevel) 
-        //    => CreateImage(CreateEmfBytes(contents, mode, errorLevel));
+        public static Image CreateEmf(string contents, QREncodeMode mode, QRErrorLevel errorLevel)
+            => CreateImage(CreateEmfBytes(contents, mode, errorLevel));
 
-        //#endregion
+        #endregion
 
-        //#region qr reader
+        #region qr reader
 
 
         //public static byte[] ReadAsBinary(byte[] qr, BarCodeReadType type = BarCodeReadType.QR)
@@ -115,64 +115,64 @@ namespace QRCodeReader_Aspose_19_5
         //    }
         //}
 
-        //#endregion
+        #endregion
 
-        ///// <summary> Allowed <paramref name="resolution"/> are  </summary>
-        //private static Bitmap CreateBitmap(string contents
-        //    , int? resolution = null, QREncodeMode mode = DefaultQrEncodeMode
-        //    , QRErrorLevel errorLevel = DefaultQrErrorLevel)
-        //{
-        //    Bitmap bitmap = CreateBitmapImage(contents, resolution, mode, errorLevel);
-        //    return bitmap;
-        //    /*using (var ms = new MemoryStream())
-        //    {
-        //        bitmap.Save(ms, ImageFormat.Png);
-        //        var content = ms.ToArray();
-        //        return CreateImage(content);
-        //        //return new Image(content, "QR.png");
-        //    }*/
-        //}
+        /// <summary> Allowed <paramref name="resolution"/> are  </summary>
+        private static Bitmap CreateBitmap(string contents
+            , int? resolution = null, QREncodeMode mode = DefaultQrEncodeMode
+            , QRErrorLevel errorLevel = DefaultQrErrorLevel)
+        {
+            Bitmap bitmap = CreateBitmapImage(contents, resolution, mode, errorLevel);
+            return bitmap;
+            /*using (var ms = new MemoryStream())
+            {
+                bitmap.Save(ms, ImageFormat.Png);
+                var content = ms.ToArray();
+                return CreateImage(content);
+                //return new Image(content, "QR.png");
+            }*/
+        }
 
-        //private static Image CreateImage(this byte[] content)
-        //{
-        //    return Image.FromStream(new MemoryStream(content));
-        //}
+        private static Image CreateImage(this byte[] content)
+        {
+            return Image.FromStream(new MemoryStream(content));
+        }
 
-        //private static Bitmap CreateBitmapImage(string contents, int? resolution, QREncodeMode mode, QRErrorLevel errorLevel)
-        //{
-        //    var builder = CreateQrBuilder(contents, mode, errorLevel);
+        private static Bitmap CreateBitmapImage(string contents, int? resolution, QREncodeMode mode, QRErrorLevel errorLevel)
+        {
+            var builder = CreateQrBuilder(contents, mode, errorLevel);
 
-        //    if (resolution.HasValue)
-        //        return builder.GetCustomSizeBarCodeImage(new Size(resolution.Value, resolution.Value), false);
+            if (resolution.HasValue)
+                return builder.GetCustomSizeBarCodeImage(new Size(resolution.Value, resolution.Value), false);
 
-        //    return builder.GetOnlyBarCodeImage();
-        //}
+            return builder.GetOnlyBarCodeImage();
+        }
 
-        //private static byte[] CreateEmfBytes(string contents, QREncodeMode mode, QRErrorLevel errorLevel)
-        //{
-        //    var builder = CreateQrBuilder(contents, mode, errorLevel);
-        //    var emfImage = new MemoryStream();
-        //    builder.SaveAsEmf(emfImage);
-        //    return emfImage.ToArray();
-        //}
+        private static byte[] CreateEmfBytes(string contents, QREncodeMode mode, QRErrorLevel errorLevel)
+        {
+            var builder = CreateQrBuilder(contents, mode, errorLevel);
+            var emfImage = new MemoryStream();
+            builder.Save(emfImage, BarCodeImageFormat.Emf);
+            return emfImage.ToArray();
+        }
 
-        //private static BarCodeBuilder CreateQrBuilder(string contents, QREncodeMode mode, QRErrorLevel errorLevel)
-        //{
-        //    if (mode == QREncodeMode.Binary)
-        //    {
-        //        var bytes = Encoding.UTF8.GetBytes(contents);
-        //        contents = ISO_8859_1.GetString(bytes);
-        //    }
+        private static BarCodeBuilder CreateQrBuilder(string contents, QREncodeMode mode, QRErrorLevel errorLevel)
+        {
+            if (mode == QREncodeMode.Utf8BOM)
+            {
+                var bytes = Encoding.UTF8.GetBytes(contents);
+                contents = ISO_8859_1.GetString(bytes);
+            }
 
-        //    BarCodeBuilder builder = new BarCodeBuilder(contents, Symbology.QR)
-        //    {
-        //        QRErrorLevel = errorLevel,
-        //        QREncodeMode = mode,
-        //        EnableEscape = true,
-        //        CaptionAbove = new Caption { Visible = false },
-        //        CaptionBelow = new Caption { Visible = false }
-        //    };
-        //    return builder;
-        //}
+            BarCodeBuilder builder = new BarCodeBuilder(contents)
+            {
+                QRErrorLevel = errorLevel,
+                QREncodeMode = mode,
+                EnableEscape = true,
+                CaptionAbove = new Caption { Visible = false },
+                CaptionBelow = new Caption { Visible = false }
+            };
+            return builder;
+        }
     }
 }
