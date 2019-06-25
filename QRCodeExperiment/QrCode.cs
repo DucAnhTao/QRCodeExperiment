@@ -1,11 +1,16 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Text;
-using Aspose.BarCode;
-using Aspose.BarCodeRecognition;
+//using Aspose.BarCode;
+//using Aspose.BarCodeRecognition;
+using Aspose.Words;
+using Aspose.Words.Saving;
 using Lpa.DocFramework.AsposeWrapper;
 using ZXing;
+using ZXing.Common;
 
 namespace QRCodeExperiment
 {
@@ -27,7 +32,9 @@ namespace QRCodeExperiment
         }
 
         private static Encoding ISO_8859_1 = Encoding.GetEncoding("iso-8859-1");
-        private const QREncodeMode DefaultQrEncodeMode = QREncodeMode.Binary;
+        private static float RESOLUTION = 100;
+
+        //private const QREncodeMode DefaultQrEncodeMode = QREncodeMode.Binary;
 
         /// <summary> Level of Reed-Solomon error correction. From low to high: LevelL, LevelM, LevelQ, LevelH. </summary>
         /// <remarks>
@@ -37,85 +44,74 @@ namespace QRCodeExperiment
         /// LevelH. Allows recovery of 30% of the code text
         /// 
         /// </remarks>
-        private const QRErrorLevel DefaultQrErrorLevel = QRErrorLevel.LevelH;
+        //private const QRErrorLevel DefaultQrErrorLevel = QRErrorLevel.LevelH;
 
         #region default create methods
 
         public static Bitmap Create(string contents) => CreateBitmap(contents);
 
-        public static Bitmap Create(string contents, QREncodeMode mode) => CreateBitmap(contents, mode: mode);
-
-        public static Bitmap Create(string contents, QRErrorLevel errorLevel) => CreateBitmap(contents, errorLevel: errorLevel);
-
-        public static Bitmap Create(string contents, QREncodeMode mode, QRErrorLevel errorLevel) => CreateBitmap(contents, mode: mode, errorLevel: errorLevel);
-
-        public static Bitmap Create(string contents, int resolution) => CreateBitmap(contents, resolution);
-
-        public static Bitmap Create(string contents, int resolution, QREncodeMode mode) => CreateBitmap(contents, resolution, mode);
-
-        public static Bitmap Create(string contents, int resolution, QRErrorLevel errorLevel) => CreateBitmap(contents, resolution, errorLevel: errorLevel);
-
-        public static Bitmap Create(string contents, int resolution, QREncodeMode mode, QRErrorLevel errorLevel) 
-            => CreateBitmap(contents, resolution, mode, errorLevel);
-
-        public static Image CreateEmf(string contents, QREncodeMode mode, QRErrorLevel errorLevel) 
-            => CreateImage(CreateEmfBytes(contents, mode, errorLevel));
+        public static Image CreateEmf(byte [] contents) => CreateImage(contents);
 
         #endregion
 
         #region qr reader
 
 
-        public static byte[] ReadAsBinary(byte[] qr, BarCodeReadType type = BarCodeReadType.QR)
+        public static byte[] ReadAsBinary(byte[] qr, BarcodeFormat type = BarcodeFormat.QR_CODE)
         {
             using (var ms = new MemoryStream(qr))
             {
-                BarCodeReader reader = new BarCodeReader(ms, type);
-                if (reader.Read())
+                IBarcodeReader reader = new BarcodeReader();
+
+                var result = reader.DecodeMultiple(qr, 50, 50, RGBLuminanceSource.BitmapFormat.RGB32);
+
+                if (result != null)
                 {
-                    return reader.GetCodeBytes();
+                    return result[0].RawBytes;
                 }
                 return null;
+
             }
         }
 
-        public static byte[] ReadAsBinary(Bitmap bmp, BarCodeReadType type = BarCodeReadType.QR)
+        public static byte[] ReadAsBinary(Bitmap bmp, BarcodeFormat type = BarcodeFormat.QR_CODE)
         {
-            BarCodeReader reader = new BarCodeReader(bmp, type);
-            if (reader.Read())
+            IBarcodeReader reader = new BarcodeReader();
+
+            var result = reader.DecodeMultiple(bmp);
+
+            if (result != null)
             {
-                return reader.GetCodeBytes();
+                return result[0].RawBytes;
             }
             return null;
         }
 
-        public static string ReadAsString(Bitmap bmp, BarCodeReadType type = BarCodeReadType.QR)
+        public static string ReadAsString(Bitmap bmp, BarcodeFormat type = BarcodeFormat.QR_CODE)
         {
             //BarCodeReader reader = new BarCodeReader(bmp, type) { RecognitionMode = RecognitionMode.MaxQuality };
 
             IBarcodeReader reader = new BarcodeReader();
             // detect and decode the barcode inside the bitmap
-            var result = reader.Decode(bmp);
+            var result = reader.DecodeMultiple(bmp);
             // do something with the result
             if (result != null)
             {
-                return result.Text;
+                return result[0].Text;
             }
-            //if (reader.Read())
-            //{
-            //    return reader.GetCodeText();
-            //}
             return null;
         }
 
-        public static string ReadAsString(byte[] qr, BarCodeReadType type = BarCodeReadType.QR)
+        public static string ReadAsString(byte[] qr, BarcodeFormat type = BarcodeFormat.QR_CODE)
         {
             using (var ms = new MemoryStream(qr))
             {
-                BarCodeReader reader = new BarCodeReader(ms, type) { RecognitionMode=RecognitionMode.MaxQuality };
-                if (reader.Read())
+                IBarcodeReader reader = new BarcodeReader();
+                var result = reader.DecodeMultiple(qr, 50, 50, RGBLuminanceSource.BitmapFormat.RGB32);
+
+                if (result != null)
                 {
-                    return reader.GetCodeText();
+                    return result[0].Text;
                 }
                 return null;
             }
@@ -124,19 +120,12 @@ namespace QRCodeExperiment
         #endregion
 
         /// <summary> Allowed <paramref name="resolution"/> are  </summary>
-        private static Bitmap CreateBitmap(string contents
-            , int? resolution = null, QREncodeMode mode = DefaultQrEncodeMode
-            , QRErrorLevel errorLevel = DefaultQrErrorLevel)
+        private static Bitmap CreateBitmap(string contents)
         {
-            Bitmap bitmap = CreateBitmapImage(contents, resolution, mode, errorLevel);
+            Bitmap bitmap = CreateBitmapImage(contents);
+
             return bitmap;
-            /*using (var ms = new MemoryStream())
-            {
-                bitmap.Save(ms, ImageFormat.Png);
-                var content = ms.ToArray();
-                return CreateImage(content);
-                //return new Image(content, "QR.png");
-            }*/
+
         }
 
         private static Image CreateImage(this byte[] content)
@@ -144,41 +133,78 @@ namespace QRCodeExperiment
             return Image.FromStream(new MemoryStream(content));
         }
 
-        private static Bitmap CreateBitmapImage(string contents, int? resolution, QREncodeMode mode, QRErrorLevel errorLevel)
+        private static Bitmap CreateBitmapImage(string contents)
         {
-            var builder = CreateQrBuilder(contents, mode, errorLevel);
+            var qrcodeBitmap = CreateQrBuilder(contents);
 
-            if (resolution.HasValue)
-                return builder.GetCustomSizeBarCodeImage(new Size(resolution.Value, resolution.Value), false);
 
-            return builder.GetOnlyBarCodeImage();
+            return qrcodeBitmap;
         }
 
-        private static byte[] CreateEmfBytes(string contents, QREncodeMode mode, QRErrorLevel errorLevel)
+        private static byte[] CreateEmfBytes(string contents)
         {
-            var builder = CreateQrBuilder(contents, mode, errorLevel);
+            var builder = CreateQrBuilder(contents);
             var emfImage = new MemoryStream();
-            builder.SaveAsEmf(emfImage);
+            //builder.(emfImage);
             return emfImage.ToArray();
         }
 
-        private static BarCodeBuilder CreateQrBuilder(string contents, QREncodeMode mode, QRErrorLevel errorLevel)
+        private static Bitmap CreateQrBuilder(string contents)
         {
-            if (mode == QREncodeMode.Binary)
-            {
-                var bytes = Encoding.UTF8.GetBytes(contents);
-                contents = ISO_8859_1.GetString(bytes);
-            }
 
-            BarCodeBuilder builder = new BarCodeBuilder(contents, Symbology.QR)
+            var bytes = Encoding.UTF8.GetBytes(contents);
+            contents = ISO_8859_1.GetString(bytes);
+
+            BarcodeWriter builder = new BarcodeWriter()
             {
-                QRErrorLevel = errorLevel,
-                QREncodeMode = mode,
-                EnableEscape = true,
-                CaptionAbove = new Caption { Visible = false },
-                CaptionBelow = new Caption { Visible = false }
+                Format = BarcodeFormat.QR_CODE
             };
-            return builder;
+
+            Bitmap qrcodeBitmap;
+            var result = builder.Write(contents);
+            qrcodeBitmap = new Bitmap(result);
+
+            return qrcodeBitmap;
+        }
+
+        public static byte[] ImageToByte(Image img)
+        {
+            ImageConverter converter = new ImageConverter();
+            return (byte[])converter.ConvertTo(img, typeof(byte[]));
+        }
+
+        public static List<Image> DocxAsImage(byte[] data, int maxNumPages)
+        {
+            var ret = new List<Image>();
+            using (var input = new MemoryStream(data))
+            {
+                DocXAsImage(maxNumPages, ret, input);
+            }
+            return ret;
+        }
+
+        public static List<Image> DocxAsImage(string filePath, int maxNumPages)
+        {
+            var ret = new List<Image>();
+            using (var input = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+            {
+                DocXAsImage(maxNumPages, ret, input);
+            }
+            return ret;
+        }
+
+        private static void DocXAsImage(int maxNumPages, List<Image> ret, Stream input)
+        {
+            var document = new Document(input, new LoadOptions { LoadFormat = LoadFormat.Docx });
+            int numPages = Math.Min(maxNumPages, document.PageCount);
+            for (int i = 0; i < numPages; i++)
+            {
+                using (var output = new MemoryStream())
+                {
+                    document.Save(output, new ImageSaveOptions(SaveFormat.Png) { Resolution = RESOLUTION, PageIndex = i });
+                    ret.Add(Image.FromStream(output));
+                }
+            }
         }
     }
 }
